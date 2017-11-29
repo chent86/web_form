@@ -12,17 +12,25 @@ http.createServer(function(request, response) {
       var pathname = url.parse(request.url).pathname;                //deal with GET request
       console.log("Request for " + pathname + " received.");
       if (pathname == "/") {
-        pathname = "/2.html";
-        fs.readFile(pathname.substr(1), function(err, data) {        //three kinds of problems
-          if (err) {                                                 //1. GET without username:
-            console.log(err);                                        //   offer register UI
-            response.writeHead(404, {'Content-Type' : 'text/html'}); //2. GET with username
-          } else {                                                   //   give infomation UI and change url in the meanwhile
-            response.writeHead(200, {'Content-Type' : 'text/html'}); //3. GET with username(2)
-            response.write(data.toString());                         //   give infomation from server to UI
-          }
-          response.end();
-        });
+        var num = 0;
+        for(var i = 0; i < array.length; i++)
+          if(array[i].username == params.username)
+            num++;
+        console.log(num);
+        if(num == 1) 
+          pathname = "/2.html";
+        else
+          pathname = "/1.html";
+          fs.readFile(pathname.substr(1), function(err, data) {        //three kinds of problems
+            if (err) {                                                 //1. GET without username:
+              console.log(err);                                        //   offer register UI
+              response.writeHead(404, {'Content-Type' : 'text/html'}); //2. GET with username
+            } else {                                                   //   give infomation UI and change url in the meanwhile
+              response.writeHead(200, {'Content-Type' : 'text/html'}); //3. GET with username(2)
+              response.write(data.toString());                         //   give infomation from server to UI
+            }
+            response.end();
+          });
       } else {
         for (var i = 0; i < array.length; i++)
           if (array[i].username == params.username) {
@@ -58,7 +66,20 @@ http.createServer(function(request, response) {
         tmp.number = body.number;
         tmp.tel = body.tel;
         tmp.mail = body.mail;
-        array.push(tmp);
+        var result = new Array("0","0","0","0");
+        for(var i = 0; i < array.length; i++) {
+          if(array[i].username == tmp.username)
+            result[0] = '1';
+          if(array[i].number == tmp.number)
+            result[1] = '1';
+          if(array[i].tel == tmp.tel)
+            result[2] = '1';
+          if(array[i].mail == tmp.mail)
+            result[3] = '1';
+        }
+        if(parseInt(result[0]+result[1]+result[2]+result[3]) == 0)
+          array.push(tmp);
+        response.end(result[0]+result[1]+result[2]+result[3]);
         //  var fs = require("fs");
         //  console.log("准备写入文件");
         //  fs.writeFile('output', body.username,  function(err) {

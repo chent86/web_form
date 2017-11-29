@@ -7,10 +7,10 @@ window.onload = function() {
     username += tmp[i];
   if(p == -1)
     username = "error";
-  $.get("signin.js","username="+username,function(info) {
+  $.get("signin.js","username="+username,function(info) { 
     (function(info) {
       var tmp = "";
-      for(var i = 0; i < info.length; i++)
+      for(var i = 0; i < info.length; i++)    //GET third time
         if(info[i] != ' ')
           tmp += info[i];
         else {
