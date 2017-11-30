@@ -1,10 +1,13 @@
 h1 {
   text-align: center;
-  color: #182acc; 
+  color: white;
+  font-family: sans-serif;
+
 }
 
 body {
-  background-color: white;
+  background-color: #2b3137;
+  background-image: url("https://assets-cdn.github.com/images/modules/site/heroes/simple-codelines.svg");
 }
 
 #main {
@@ -15,21 +18,36 @@ body {
   width: 400px;
 }
 
-form {
-  padding-top: 10px;
-  padding-bottom: 10px;
+#form {
+  background-color: white;
+  border-radius: 4pt;
+  padding-top: 20px;
+  padding-bottom: 15px;
   width: 100%;
-  border: 1px solid black;
+  height: 310px;
   text-align: center;
-  font-size: 20pt;
+  padding-left: 5px;
+  font-size: 12pt;
+  color: #586069;
+  font-family: sans-serif;
+}
+
+#form p{
+  margin: 0;
+  text-align: left;
+  width: 80%;
+  margin-left: 10%;
 }
 
 input {
-  width: 200px;
+  width: 80%;
   margin: 5px;
   padding: 10px;
+  font-size: 15pt;
+  border-radius: 4pt;
+  border: 1px solid #d1d5da;
 }
 
-input:-webkit-autofill {
+/*input:-webkit-autofill {
   box-shadow: 0 0 0px 1000px white inset !important;
-}
+}*/

@@ -3,15 +3,23 @@ window.onload = function() {
   $("#submit").bind("click",change);
   if(window.location.href.indexOf("username") != -1)
     alert("尝试登录未注册用户!");
+
+  document.onkeydown=function(event){
+    var e = event || window.event || arguments.callee.caller.arguments[0];
+        if(e && e.keyCode == 13)  //left
+          change();      
+  };   
 }
 
 function clean() {
   $(".info").val("");
+  clean_warn();
 }
 
 function change() {
   if(!check())
     return;
+  clean_warn();
   $.ajax({
     method: 'POST',
     url: "/",
@@ -22,18 +30,15 @@ function change() {
       mail: $("input:eq(3)").val()
     },
     success: function(data) {
-      var report = "";
       if(data[0] == "1")
-        report += "用户名已被注册\n";
+        warn("0","Username is already taken");
       if(data[1] == "1")
-        report += "学号已被注册\n";
+        warn("1","Id is already taken");
       if(data[2] == "1")
-        report += "电话号码已被注册\n";
+        warn("2","Telephone is already taken");
       if(data[3] == "1")
-        report += "邮箱已被注册\n";
-      if(report)
-        alert(report);
-      else
+        warn("3","Email is already taken");
+      if(data[0] == "0" && data[1] == "0" && data[2] == "0" && data[3] == "0")
         window.location.href="?username="+$("input:eq(0)").val();    //GET second time
     }
   });
@@ -45,30 +50,51 @@ function change() {
 }
 
 function check() {
-  var report = "";
+  var check = true;
   var name = /^[a-zA-Z][_0-9a-zA-Z]{5,17}$/;
   var number = /^[1-9]\d{7,}$/;
   var tel = /^[1-9]\d{10,}$/;
-  var mail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-  if(!$("input:eq(0)").val())
-    report += "请填写用户名\n";
-  else if(!name.test($("input:eq(0)").val()))
-    report += "用户名6~18位英文字母、数字或下划线，必须以英文字母开头\n";
-  if(!$("input:eq(1)").val())
-    report += "请填写学号\n";
-  else if(!number.test($("input:eq(1)").val()))
-    report += "学号8位数字，不能以0开头\n";
-  if(!$("input:eq(2)").val())
-    report += "请填写手机号码\n";
-  else if(!tel.test($("input:eq(2)").val()))
-    report += "电话11位数字，不能以0开头\n";
-  if(!$("input:eq(3)").val())
-    report += "请填写邮箱\n";
-  // else if(!tel.test($("input:eq(3)").val()))
-  //   report += "邮箱格式不正确,请端正你的态度\n";
-  if(report) {
-    alert(report);
-    return false;
+  var mail = /^[a-zA-Z_\-]+@(([a-zA-Z_\-])+\.)+[a-zA-Z]{2,4}$/;
+  if(!$("input:eq(0)").val()) {
+    warn("0","Username can't be blank");
+    check = false;
   }
-  return true;
+  else if(!name.test($("input:eq(0)").val())) {
+    warn("0","Use letter,numeral or underline and begin with letter.\
+               (minimum is 6 and maximum is 18)");
+    check = false;
+  }
+  if(!$("input:eq(1)").val()) {
+    warn("1","Id can't be blank");
+    check = false;
+  }
+  else if(!number.test($("input:eq(1)").val())) {
+    warn("1","Use eight numeral and should not begin with zero")
+    check = false;
+  }
+  if(!$("input:eq(2)").val()) {
+    warn("2","Telephone can't be blank");
+    check = false;
+  }
+  else if(!tel.test($("input:eq(2)").val())) {
+    warn("2","Use elevent numeral and should not begin with zero");
+    check = false;
+  }
+  if(!$("input:eq(3)").val()) {
+    warn("3","Email can't be blank");
+    check = false;
+  }
+  else if(!mail.test($("input:eq(3)").val())) {
+    warn("3","Email format is not correct");
+    check = false;
+  }
+  return check;
+}
+
+function warn(id, report) {
+  $(".warning:eq("+id+")").text(report);
+}
+
+function clean_warn() {
+  $(".warning").text("");
 }
