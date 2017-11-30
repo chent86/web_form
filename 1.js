@@ -2,7 +2,7 @@ window.onload = function() {
   $("#set").bind("click",clean);
   $("#submit").bind("click",change);
   if(window.location.href.indexOf("username") != -1)
-    alert("尝试登录未注册用户!");
+    alert("请先进行注册!");
 
   document.onkeydown=function(event){
     var e = event || window.event || arguments.callee.caller.arguments[0];
