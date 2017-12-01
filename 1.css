@@ -6,7 +6,8 @@ h1 {
 
 body {
   background-color: #2b3137;
-  background-image: url("https://assets-cdn.github.com/images/modules/site/heroes/simple-codelines.svg");
+  /*background-image: url("https://assets-cdn.github.com/images/modules/site/heroes/simple-codelines.svg");*/
+  background-image: url("/simple-codelines.svg");
 }
 
 #main {
