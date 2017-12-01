@@ -48,7 +48,11 @@ http.createServer(function(request, response) {
           console.log(err);
           response.writeHead(404, {'Content-Type' : 'text/html'});
         } else {
-          response.writeHead(200, {'Content-Type' : 'text/html'});
+          if(pathname == "/simple-codelines.svg") {
+            response.writeHead(200, {'Content-Type' : 'image/svg+xml'});
+          }
+          else
+          response.writeHead(200);
           response.write(data.toString());
         }
         response.end();
