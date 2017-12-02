@@ -54,7 +54,7 @@ function check() {
   var name = /^[a-zA-Z][_0-9a-zA-Z]{5,17}$/;
   var number = /^[1-9]\d{7,}$/;
   var tel = /^[1-9]\d{10,}$/;
-  var mail = /^[a-zA-Z_\-]+@(([a-zA-Z_\-])+\.)+[a-zA-Z]{2,4}$/;
+  var mail = /^[0-9a-zA-Z_\-]+@(([0-9a-zA-Z_\-])+\.)+[a-zA-Z]{2,4}$/;
   if(!$("input:eq(0)").val()) {
     warn("0","Username can't be blank");
     check = false;

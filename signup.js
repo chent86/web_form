@@ -18,9 +18,9 @@ http.createServer(function(request, response) {
             num++;
         console.log(num);
         if(num == 1) 
-          pathname = "/2.html";
+          pathname = "/info/2.html";
         else
-          pathname = "/1.html";
+          pathname = "/index/1.html";
           fs.readFile(pathname.substr(1), function(err, data) {        //three kinds of problems
             if (err) {                                                 //1. GET without username:
               console.log(err);                                        //   offer register UI
@@ -42,13 +42,13 @@ http.createServer(function(request, response) {
       var pathname = url.parse(request.url).pathname;
       console.log("Request for " + pathname + " received.");
       if (pathname == "/")
-        pathname = "/1.html";
+        pathname = "/index/1.html";
       fs.readFile(pathname.substr(1), function(err, data) {
         if (err) {
           console.log(err);
           response.writeHead(404, {'Content-Type' : 'text/html'});
         } else {
-          if(pathname == "/simple-codelines.svg") {
+          if(pathname == "/picture/simple-codelines.svg") {
             response.writeHead(200, {'Content-Type' : 'image/svg+xml'});
           }
           else
