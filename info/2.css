@@ -2,13 +2,17 @@ h1 {
   text-align: center;
   color: white;
   font-family: sans-serif;
-
+  user-select: none;
 }
 
 body {
   background-color: #2b3137;
   /*background-image: url("https://assets-cdn.github.com/images/modules/site/heroes/simple-codelines.svg");*/
   background-image: url("../picture/simple-codelines.svg");
+}
+
+p {
+  user-select: none;
 }
 
 #main {
@@ -47,6 +51,7 @@ input {
   font-size: 15pt;
   border-radius: 4pt;
   border: 1px solid #d1d5da;
+  background-color: white;
 }
 
 /*input:-webkit-autofill {

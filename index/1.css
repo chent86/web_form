@@ -2,11 +2,16 @@ h1 {
   text-align: center;
   color: white;
   font-family: sans-serif;
+  user-select: none;
 }
 
 body {
   background-color: #2b3137;
   background-image: url("../picture/simple-codelines.svg");
+}
+
+p {
+  user-select: none;
 }
 
 #main {
@@ -66,6 +71,7 @@ input {
   font-weight: bold;
   border: 1px solid rgba(27,31,35,0.2);
   padding: 5px;
+  cursor: pointer;
 }
 
 #set:hover {
@@ -87,6 +93,7 @@ input {
   font-weight: bold;
   border: 1px solid rgba(27,31,35,0.2);
   padding: 5px;
+  cursor: pointer;
 }
 
 #submit:hover {
@@ -95,9 +102,37 @@ input {
 
 .warning {
   position: absolute;
-  left: 30%;
-  color: red;
+  left: 110%;
+  color: white;
   width: 270px;
   margin: 0px;
   text-align: left;
+  background-image: linear-gradient(-180deg, #f95454 0%, #d10202 90%);
+  border-radius: 8px;
+  padding: 10px;
+  transition: 1s;
+  font-weight: bold;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.show {
+  opacity: 1;
+}
+
+#a {
+}
+
+#b {
+  top: 171px;
+}
+
+#c {
+  top: 247px;
+}
+
+#d {
+  top: 323px;
 }

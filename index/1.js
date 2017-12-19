@@ -1,6 +1,8 @@
 window.onload = function() {
   $("#set").bind("click",clean);
   $("#submit").bind("click",change);
+  $(".info").focus(writing);
+  $(".info").blur(ready_for_check);
   if(window.location.href.indexOf("username") != -1)
     alert("请先进行注册!");
 
@@ -9,6 +11,38 @@ window.onload = function() {
         if(e && e.keyCode == 13)  //left
           change();      
   };   
+}
+
+function writing() {
+  if(this.name == "username")
+    $(".warning:eq(0)").removeClass("show").addClass("hide");
+  if(this.name == "number")
+    $(".warning:eq(1)").removeClass("show").addClass("hide"); 
+  if(this.name == "tel")
+    $(".warning:eq(2)").removeClass("show").addClass("hide");   
+  if(this.name == "mail")
+    $(".warning:eq(3)").removeClass("show").addClass("hide");  
+}
+
+function ready_for_check() {
+  var check = true;
+  var name = /^[a-zA-Z][_0-9a-zA-Z]{5,17}$/;
+  var number = /^[1-9]\d{7,}$/;
+  var tel = /^[1-9]\d{10,}$/;
+  var mail = /^[0-9a-zA-Z_\-]+@(([0-9a-zA-Z_\-])+\.)+[a-zA-Z]{2,4}$/;
+  if(this.name == "username")
+    if(!name.test($("input:eq(0)").val()) && $("input:eq(0)").val() != "")
+        warn("0","Use letter,numeral or underline and begin with letter.\
+                   (minimum is 6 and maximum is 18)");
+  if(this.name == "number")
+    if(!number.test($("input:eq(1)").val()) && $("input:eq(1)").val() != "")
+        warn("1","Use eight numeral and should not begin with zero")    
+  if(this.name == "tel")
+    if(!tel.test($("input:eq(2)").val()) && $("input:eq(2)").val() != "")
+        warn("2","Use elevent numeral and should not begin with zero");  
+  if(this.name == "mail")
+    if(!mail.test($("input:eq(3)").val()) && $("input:eq(3)").val() != "")
+        warn("3","Email format is not correct");   
 }
 
 function clean() {
@@ -92,9 +126,9 @@ function check() {
 }
 
 function warn(id, report) {
-  $(".warning:eq("+id+")").text(report);
+  $(".warning:eq("+id+")").text(report).removeClass("hide").addClass("show");
 }
 
 function clean_warn() {
-  $(".warning").text("");
+  $(".warning").removeClass("show").addClass("hide");
 }
